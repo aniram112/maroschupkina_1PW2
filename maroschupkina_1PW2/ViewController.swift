@@ -199,7 +199,7 @@ class ViewController: UIViewController {
                 sender.setOn(false, animated: true)
             }
         } else {
-            locationTextView.text = ""
+            locationTextView.text = "1"
             locationManager.stopUpdatingLocation()
         }
     }
@@ -273,5 +273,6 @@ extension ViewController: CLLocationManagerDelegate {
         guard let coord: CLLocationCoordinate2D =
                 manager.location?.coordinate else { return }
         locationTextView.text = "Coordinates = \(coord.latitude) \(coord.longitude)"
+        locationTextView.textColor = .black
     }
 }
