@@ -11,14 +11,15 @@ import CoreLocation
 class ViewController: UIViewController {
     
     private let settingsView = UIStackView()
+    let setView = UIView()
     private let locationTextView = UITextView()
     private let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupLocationTextView()
         setupSettingsView()
         setupSettingsButton()
-        setupLocationTextView()
         setupLocationToggle()
         setupSliders()
         locationManager.requestAlwaysAuthorization()
@@ -34,7 +35,7 @@ class ViewController: UIViewController {
         view.addSubview(settingsButton)
         
         let image = UIImage(named: "settings")!.withRenderingMode(.alwaysOriginal)
-        let newimage = image.withTintColor(UIColor.white);
+        let newimage = image.withTintColor(UIColor.gray);
         settingsButton.setImage(newimage, for: .normal)
         
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
@@ -54,11 +55,12 @@ class ViewController: UIViewController {
         
     }
     private func setupSettingsView() {
-        let setView = UIView()
         view.addSubview(setView)
         setView.translatesAutoresizingMaskIntoConstraints = false
-        setView.backgroundColor = .systemGray4
+        setView.backgroundColor = .white
         setView.alpha = 0
+        setView.layer.cornerRadius = 20
+        
         setView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor,
             constant: 10
@@ -90,8 +92,9 @@ class ViewController: UIViewController {
         switch buttonCount {
         case 0, 1:
             UIView.animate(withDuration: 0.001, animations: {
-                self.settingsView.alpha = 1 - self.settingsView.alpha
+                self.setView.alpha = 1 - self.setView.alpha
             })
+            
         case 2:
             navigationController?.pushViewController(
                 SettingsViewController(),
@@ -128,17 +131,37 @@ class ViewController: UIViewController {
     
     
     private func setupLocationToggle(){
+        let view = UIView()
+        
+        settingsView.addArrangedSubview(view)
+        //view.backgroundColor = .yellow
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.leadingAnchor.constraint(
+            equalTo: settingsView.leadingAnchor,
+            constant: 10
+        ).isActive = true
+        view.trailingAnchor.constraint(
+            equalTo: settingsView.trailingAnchor,
+            constant: -10 ).isActive = true
+        view.topAnchor.constraint(
+            equalTo: settingsView.topAnchor,
+            constant: 10
+        ).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 30).isActive =
+            true
+        
         let locationToggle = UISwitch()
-        settingsView.addArrangedSubview(locationToggle)
+        
+        view.addSubview(locationToggle)
         
         locationToggle.translatesAutoresizingMaskIntoConstraints = false
         locationToggle.topAnchor.constraint(
-            equalTo: settingsView.topAnchor,
-            constant: 50
+            equalTo: view.topAnchor,
+            constant: 20
         ).isActive = true
-        locationToggle.trailingAnchor.constraint(
-            equalTo: settingsView.trailingAnchor,
-            constant: -10 ).isActive = true
+        locationToggle.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor,
+            constant: 10 ).isActive = true
         locationToggle.addTarget(
             self,
             action: #selector(locationToggleSwitched),
@@ -146,20 +169,21 @@ class ViewController: UIViewController {
         )
         
         let locationLabel = UILabel()
-        settingsView.addArrangedSubview(locationLabel)
+        view.addSubview(locationLabel)
         locationLabel.text = "Location"
+        
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         locationLabel.topAnchor.constraint(
-            equalTo: settingsView.topAnchor,
-            constant: 55
+            equalTo: view.topAnchor,
+            constant: 25
         ).isActive = true
-        locationLabel.leadingAnchor.constraint(
-            equalTo: settingsView.leadingAnchor,
+        /*locationLabel.leadingAnchor.constraint(
+            equalTo: view.trailingAnchor,
             constant: 10
-        ).isActive = true
-        locationLabel.trailingAnchor.constraint(
-            equalTo: locationToggle.leadingAnchor,
-            constant: -10 ).isActive = true
+        ).isActive = true*/
+       locationLabel.leadingAnchor.constraint(
+            equalTo: locationToggle.trailingAnchor,
+            constant: 10 ).isActive = true
         
     }
     

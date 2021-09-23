@@ -23,7 +23,7 @@ final class SettingsViewController: UIViewController {
     }
     
     private func setupSettingsView() {
-        let settingsView = UIView()
+        //let settingsView = UIView()
         view.addSubview(settingsView)
         settingsView.backgroundColor = UIColor.magenta
         settingsView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +37,7 @@ final class SettingsViewController: UIViewController {
         settingsView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         settingsView.widthAnchor.constraint(equalToConstant:
                                                 200).isActive = true
-        settingsView.alpha = 1
+        settingsView.alpha = 0
     }
     
     private func setupLocationTextView() {
