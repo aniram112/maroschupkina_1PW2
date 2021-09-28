@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E4A7D75270331BD00177139 /* sliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4A7D74270331BD00177139 /* sliderView.swift */; };
 		7EF28C5626FD05B700777A94 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF28C5526FD05B700777A94 /* SettingsViewController.swift */; };
+		7EF28C5A26FDCDA000777A94 /* toggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF28C5926FDCDA000777A94 /* toggleView.swift */; };
+		7EF545E827034C7A006EF145 /* slidersStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF545E727034C7A006EF145 /* slidersStackView.swift */; };
 		7EFE6BBD26FB356700FA5D1E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFE6BBC26FB356700FA5D1E /* AppDelegate.swift */; };
 		7EFE6BBF26FB356700FA5D1E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFE6BBE26FB356700FA5D1E /* SceneDelegate.swift */; };
 		7EFE6BC126FB356700FA5D1E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFE6BC026FB356700FA5D1E /* ViewController.swift */; };
@@ -16,7 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7E4A7D74270331BD00177139 /* sliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sliderView.swift; sourceTree = "<group>"; };
 		7EF28C5526FD05B700777A94 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		7EF28C5926FDCDA000777A94 /* toggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toggleView.swift; sourceTree = "<group>"; };
+		7EF545E727034C7A006EF145 /* slidersStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = slidersStackView.swift; sourceTree = "<group>"; };
 		7EFE6BB926FB356700FA5D1E /* maroschupkina_1PW2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = maroschupkina_1PW2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EFE6BBC26FB356700FA5D1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7EFE6BBE26FB356700FA5D1E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,6 +46,7 @@
 		7EFE6BB026FB356700FA5D1E = {
 			isa = PBXGroup;
 			children = (
+				7EF545E727034C7A006EF145 /* slidersStackView.swift */,
 				7EFE6BBB26FB356700FA5D1E /* maroschupkina_1PW2 */,
 				7EFE6BBA26FB356700FA5D1E /* Products */,
 			);
@@ -63,6 +70,8 @@
 				7EFE6BC526FB356B00FA5D1E /* Assets.xcassets */,
 				7EFE6BC726FB356B00FA5D1E /* LaunchScreen.storyboard */,
 				7EFE6BCA26FB356B00FA5D1E /* Info.plist */,
+				7EF28C5926FDCDA000777A94 /* toggleView.swift */,
+				7E4A7D74270331BD00177139 /* sliderView.swift */,
 			);
 			path = maroschupkina_1PW2;
 			sourceTree = "<group>";
@@ -137,9 +146,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EFE6BC126FB356700FA5D1E /* ViewController.swift in Sources */,
+				7E4A7D75270331BD00177139 /* sliderView.swift in Sources */,
 				7EFE6BBD26FB356700FA5D1E /* AppDelegate.swift in Sources */,
 				7EFE6BBF26FB356700FA5D1E /* SceneDelegate.swift in Sources */,
+				7EF28C5A26FDCDA000777A94 /* toggleView.swift in Sources */,
 				7EF28C5626FD05B700777A94 /* SettingsViewController.swift in Sources */,
+				7EF545E827034C7A006EF145 /* slidersStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
