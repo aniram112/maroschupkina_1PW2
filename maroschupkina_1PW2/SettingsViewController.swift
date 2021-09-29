@@ -10,107 +10,59 @@ import CoreLocation
 
 final class SettingsViewController: UIViewController {
     
-    private let settingsView = UIView()
-    private let locationTextView = UITextView()
+    private let settingsView = UIStackView()
+    let setView = UIView()
+    private var locationTextView = UITextView()
     private let locationManager = CLLocationManager()
     
+    convenience init(textview: UITextView){
+        self.init()
+        view.alpha = 1
+        locationTextView = textview
+    }
     override func viewDidLoad() {
-        super.viewDidLoad()
         setupSettingsView()
-        setupLocationTextView()
+        //setupCloseButton()
         setupLocationToggle()
+        setupSliders()
+        super.viewDidLoad()
         locationManager.requestAlwaysAuthorization()
     }
     
     private func setupSettingsView() {
-        //let settingsView = UIView()
-        view.addSubview(settingsView)
-        settingsView.backgroundColor = UIColor.magenta
-        settingsView.translatesAutoresizingMaskIntoConstraints = false
-        settingsView.topAnchor.constraint(
+        view.addSubview(setView)
+        setView.translatesAutoresizingMaskIntoConstraints = false
+        setView.backgroundColor = .white
+        setView.alpha = 1
+        setView.layer.cornerRadius = 20
+        
+        setView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor,
-            constant: 10
+            constant: 20
         ).isActive = true
-        settingsView.trailingAnchor.constraint(
+        setView.trailingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-            constant: -10 ).isActive = true
-        settingsView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        settingsView.widthAnchor.constraint(equalToConstant:
-                                                200).isActive = true
-        settingsView.alpha = 0
-    }
-    
-    private func setupLocationTextView() {
-        view.addSubview(locationTextView)
-        locationTextView.backgroundColor = .white
-        locationTextView.layer.cornerRadius = 20
-        locationTextView.translatesAutoresizingMaskIntoConstraints = false
-        locationTextView.topAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.topAnchor,
-            constant: 60
+            constant: -10 ).isActive = false
+        setView.heightAnchor.constraint(equalToConstant: 300).isActive =
+            true
+        setView.widthAnchor.constraint(
+            equalTo: view.heightAnchor
         ).isActive = true
-        locationTextView.centerXAnchor.constraint(
-            equalTo: view.centerXAnchor
-        ).isActive = true
-        locationTextView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        locationTextView.leadingAnchor.constraint(
-            equalTo: view.leadingAnchor,
-            constant: 15
-        ).isActive = true
-        locationTextView.isUserInteractionEnabled = false
-    }
-    
-    private func setupLocationToggle(){
-        let locationToggle = UISwitch()
-        settingsView.addSubview(locationToggle)
         
-        locationToggle.translatesAutoresizingMaskIntoConstraints = false
-        locationToggle.topAnchor.constraint(
-            equalTo: settingsView.topAnchor,
-            constant: 50
-        ).isActive = true
-        locationToggle.trailingAnchor.constraint(
-            equalTo: settingsView.trailingAnchor,
-            constant: -10 ).isActive = true
-        locationToggle.addTarget(
-            self,
-            action: #selector(locationToggleSwitched),
-            for: .valueChanged
-        )
-        
-        let locationLabel = UILabel()
-        settingsView.addSubview(locationLabel)
-        locationLabel.text = "Location"
-        locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        locationLabel.topAnchor.constraint(
-            equalTo: settingsView.topAnchor,
-            constant: 55
-        ).isActive = true
-        locationLabel.leadingAnchor.constraint(
-            equalTo: settingsView.leadingAnchor,
-            constant: 10
-        ).isActive = true
-        locationLabel.trailingAnchor.constraint(
-            equalTo: locationToggle.leadingAnchor,
-            constant: -10 ).isActive = true
+        setView.addSubview(settingsView)
+        settingsView.axis = .vertical
+        settingsView.translatesAutoresizingMaskIntoConstraints = false
+        settingsView.topAnchor.constraint(equalTo:
+                                            setView.topAnchor).isActive = true
+        settingsView.trailingAnchor.constraint(equalTo:
+                                                setView.trailingAnchor).isActive = true
+        settingsView.leadingAnchor.constraint(equalTo:
+                                                setView.leadingAnchor).isActive = true
+        setView.alpha = 1
+        settingsView.alpha = 1
+        view.alpha = 1
     }
-    
-    @objc
-    func locationToggleSwitched(_ sender: UISwitch) {
-        if sender.isOn {
-            if CLLocationManager.locationServicesEnabled() {
-                locationManager.delegate = self
-                locationManager.desiredAccuracy =
-                    kCLLocationAccuracyNearestTenMeters
-                locationManager.startUpdatingLocation()
-            } else {
-                sender.setOn(false, animated: true)
-            }
-        } else {
-            locationTextView.text = ""
-            locationManager.stopUpdatingLocation()
-        }
-    }
+
     
     private func setupCloseButton() {
         let button = UIButton(type: .close)
@@ -135,7 +87,74 @@ final class SettingsViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
      
-     
+    private func setupLocationToggle(){
+        let toggleview = toggleView(frame: CGRect.zero,  textview: locationTextView)
+        
+        settingsView.addArrangedSubview(toggleview)
+        
+        toggleview.translatesAutoresizingMaskIntoConstraints = false
+        toggleview.leadingAnchor.constraint(
+            equalTo: settingsView.leadingAnchor,
+            constant: 10
+        ).isActive = true
+        toggleview.trailingAnchor.constraint(
+            equalTo: settingsView.trailingAnchor,
+            constant: -10 ).isActive = true
+        toggleview.topAnchor.constraint(
+            equalTo: settingsView.topAnchor,
+            constant: 10
+        ).isActive = true
+        toggleview.heightAnchor.constraint(equalToConstant: 60).isActive =
+            true
+        toggleview.alpha = 1
+    }
+    
+    private let sliders = [UISlider(), UISlider(), UISlider()]
+    private let colors = ["Red", "Green", "Blue"]
+    private var slidersVariables = Array(repeating: CGFloat(0), count: 3)
+    
+    private func setupSliders() {
+        var top = 80
+        for i in 0..<sliders.count {
+            let view = sliderView(frame: CGRect.zero, sliderLabel: colors[i])
+            //view.backgroundColor = .yellow
+            
+            settingsView.addArrangedSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.leadingAnchor.constraint(
+                equalTo: settingsView.leadingAnchor,
+                constant: 10
+            ).isActive = true
+            view.trailingAnchor.constraint(
+                equalTo: settingsView.trailingAnchor,
+                constant: -10 ).isActive = true
+            view.topAnchor.constraint(
+                equalTo: settingsView.topAnchor,
+                constant: CGFloat(top)
+            ).isActive = true
+            view.heightAnchor.constraint(equalToConstant: 40).isActive =
+                true
+            top += 40
+            
+            view.slider.addTarget(self, action:
+                                #selector(sliderChangedValue), for: .valueChanged)
+            
+        }
+        
+        
+    }
+    
+    @objc private func sliderChangedValue() {
+        let mysliders = settingsView.subviews.compactMap{$0 as? sliderView}
+        //mysliders[0].sliderValue
+        let red: CGFloat = CGFloat(mysliders[0].sliderValue)
+        let green: CGFloat = CGFloat(mysliders[1].sliderValue)
+        let blue: CGFloat = CGFloat(mysliders[2].sliderValue)
+        Settings.sharedInstance.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
+        self.view.backgroundColor = Settings.sharedInstance.backgroundColor
+    }
+    
+    
     
 }
 

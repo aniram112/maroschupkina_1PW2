@@ -4,6 +4,7 @@
 //
 //  Created by Marina Roshchupkina on 28.09.2021.
 //
+//  не используется но мне стало жалко его удалять 
 
 import UIKit
 class slidersStackView: UIView{

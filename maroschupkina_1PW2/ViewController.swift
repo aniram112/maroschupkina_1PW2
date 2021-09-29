@@ -12,13 +12,14 @@ class ViewController: UIViewController {
     
     private let settingsView = UIStackView()
     let setView = UIView()
-    private let locationTextView = UITextView()
+    let locationTextView = UITextView()
     private let locationManager = CLLocationManager()
     //let vview = toggleView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //view.addSubview(vview)
+        self.view.backgroundColor = Settings.sharedInstance.backgroundColor
         setupLocationTextView()
         setupSettingsView()
         setupSettingsButton()
@@ -97,14 +98,17 @@ class ViewController: UIViewController {
             UIView.animate(withDuration: 0.001, animations: {
                 self.setView.alpha = 1 - self.setView.alpha
             })
+            view.backgroundColor = Settings.sharedInstance.backgroundColor
             
         case 2:
             navigationController?.pushViewController(
-                SettingsViewController(),
+                SettingsViewController(textview: locationTextView),
                 animated: true
             )
+            view.backgroundColor = Settings.sharedInstance.backgroundColor
         case 3:
-            present(SettingsViewController(),animated: true,completion: nil)
+            present(SettingsViewController(textview: locationTextView),animated: true,completion: nil)
+            view.backgroundColor = Settings.sharedInstance.backgroundColor
         default:
             buttonCount = -1
         }
@@ -137,7 +141,6 @@ class ViewController: UIViewController {
         let toggleview = toggleView(frame: CGRect.zero,  textview: locationTextView)
         
         settingsView.addArrangedSubview(toggleview)
-
         
         toggleview.translatesAutoresizingMaskIntoConstraints = false
         toggleview.leadingAnchor.constraint(
@@ -159,19 +162,8 @@ class ViewController: UIViewController {
     
     private let sliders = [UISlider(), UISlider(), UISlider()]
     private let colors = ["Red", "Green", "Blue"]
-    //private let colors = ["Red","Blue"]
-    /*private func setupSliders() {
-       /* let slView = slidersStackView(frame: CGRect.zero, numberOfSliders: 3, labels: colors)
-        settingsView.addArrangedSubview(slView)
-        let red: CGFloat = CGFloat(slView.slidersValues[0])
-        let green: CGFloat = CGFloat(slView.slidersValues[0])
-        let blue: CGFloat = CGFloat(slView.slidersValues[0])
-        view.backgroundColor = UIColor(red: red, green: green, blue:
-           */                             blue, alpha: 1)
-        
-    }*/
-    
     private var slidersVariables = Array(repeating: CGFloat(0), count: 3)
+    
     private func setupSliders() {
         var top = 80
         for i in 0..<sliders.count {
@@ -196,41 +188,8 @@ class ViewController: UIViewController {
             top += 40
             
             view.slider.addTarget(self, action:
-                                #selector(sliderChangedValue), for: .valueChanged)
+                                    #selector(sliderChangedValue), for: .valueChanged)
             
-            //let sldrVw = sliderView(frame: CGRect.zero, sliderLabel: colors[i])
-            //view.addSubview(sldrVw)
-            /*
-            let label = UILabel()
-            view.addSubview(label)
-            label.text = colors[i]
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.topAnchor.constraint(
-                equalTo: view.topAnchor,
-                constant: 5
-            ).isActive = true
-            label.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor
-            ).isActive = true
-            label.widthAnchor.constraint(
-                equalToConstant: 50
-            ).isActive = true
-            let slider = sliders[i]
-            slider.translatesAutoresizingMaskIntoConstraints = false
-            slider.minimumValue = 0
-            slider.maximumValue = 1
-            slider.addTarget(self, action:
-                                #selector(sliderChangedValue), for: .valueChanged)
-            view.addSubview(slider)
-            slider.topAnchor.constraint(equalTo: view.topAnchor,
-                                        constant: 5).isActive = true
-            slider.heightAnchor.constraint(equalToConstant: 20).isActive
-                = true
-            slider.leadingAnchor.constraint(equalTo:
-                                                label.trailingAnchor, constant: 10).isActive = true
-            slider.trailingAnchor.constraint(equalTo:
-                                                view.trailingAnchor).isActive = true
-            slider.alpha = 1*/
         }
     }
     
@@ -240,8 +199,11 @@ class ViewController: UIViewController {
         let red: CGFloat = CGFloat(mysliders[0].sliderValue)
         let green: CGFloat = CGFloat(mysliders[1].sliderValue)
         let blue: CGFloat = CGFloat(mysliders[2].sliderValue)
-        view.backgroundColor = UIColor(red: red, green: green, blue:
-                                        blue, alpha: 1)
+        Settings.sharedInstance.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
+        view.backgroundColor = Settings.sharedInstance.backgroundColor
+    }
+    
+    
     }
 }
 
