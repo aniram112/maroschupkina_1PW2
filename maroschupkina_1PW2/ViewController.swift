@@ -15,11 +15,13 @@ class ViewController: UIViewController {
     let locationTextView = UITextView()
     private let locationManager = CLLocationManager()
     //let vview = toggleView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+    //var observer:NSKeyValueObservation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //view.addSubview(vview)
         self.view.backgroundColor = Settings.sharedInstance.backgroundColor
+        
         setupLocationTextView()
         setupSettingsView()
         setupSettingsButton()
@@ -111,6 +113,7 @@ class ViewController: UIViewController {
             view.backgroundColor = Settings.sharedInstance.backgroundColor
         default:
             buttonCount = -1
+            view.backgroundColor = Settings.sharedInstance.backgroundColor
         }
         buttonCount += 1
     }
@@ -204,6 +207,6 @@ class ViewController: UIViewController {
     }
     
     
-    }
+    
 }
 

@@ -18,11 +18,11 @@ final class SettingsViewController: UIViewController {
     convenience init(textview: UITextView){
         self.init()
         view.alpha = 1
-        locationTextView = textview
+        //locationTextView = textview
     }
     override func viewDidLoad() {
         setupSettingsView()
-        //setupCloseButton()
+        setupCloseButton()
         setupLocationToggle()
         setupSliders()
         super.viewDidLoad()
